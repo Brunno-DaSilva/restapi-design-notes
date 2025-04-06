@@ -1,6 +1,4 @@
-
 # REST API Best Practices
-
 
 ## The History of Distributed APIs
 
@@ -8,7 +6,7 @@ Distributed computing has evolved significantly over the decades, shaping how sy
 
 **Dawn of distributed computing**
 
-Communicating between two computers is not a new problem it dates back to almost 50 years ago. 
+Communicating between two computers is not a new problem it dates back to almost 50 years ago.
 
 - 1970 
     - RPC
@@ -34,15 +32,12 @@ Communicating between two computers is not a new problem it dates back to almost
 - 2020
 
 **Do you really need a web API?**
-    - Are you bilding a website?
+    - Are you building a website?
     - Are you building a SPA?
     - Are you building a mobile app?
-    -If not, wht are you doing it?
+    - If not, why are you doing it?
 
-
-
-### How does HTTP work?**
-
+### How does HTTP work?
 
 - **Client** ➡️ makes a request to the ➡️ **Server**
 
@@ -53,7 +48,7 @@ Communicating between two computers is not a new problem it dates back to almost
                 - headers  - Info About the request
                 - content - The request data
 🖥️ ===============================================>🗄️
-               
+
                 - POST
                 - Content Length: 12
                 - Hello World!
@@ -64,11 +59,10 @@ Communicating between two computers is not a new problem it dates back to almost
                 - headers     - Info About the response
                 - content     - The response data
 🖥️ <===============================================🗄️
-                
+
                 - Status 201 
                 - Content Type: Text
                 - Hello World!
-
 
 **Request Deconstructed**
 
@@ -82,7 +76,7 @@ Communicating between two computers is not a new problem it dates back to almost
 - headers
     - Metadata about the request
         - Content-Type: The format of the content
-        - Contet-Length: Size of content
+        - Content-Length: Size of content
         - Authorization: Who's making the call
         - Accept: What type(s) can accept
         - Cookies: Client data in the request
@@ -110,7 +104,6 @@ Communicating between two computers is not a new problem it dates back to almost
         - Expires: When to consider stale
         - Cookies: Passenger data in the request
         - More Headers or Custom Headers ...
-
 - content
     - Content 
         - HTML, CSS, JavaScript, XML, JSON
@@ -121,27 +114,25 @@ Communicating between two computers is not a new problem it dates back to almost
 
 **REpresentational State Transfer**
 - Concepts include: 
-    - Seperation of client and server
+    - Separation of client and server
     - Servers are stateless
     - Cacheable requests
-    - Uniform interface.
-
+    - Uniform interface
 
 **Problems of REST**
-REST concepts and contextualization can be extremelly difficult to embody and can be a stumbling block for some developers who struggle to apply them pragmatically in real-world applications.
+REST concepts and contextualization can be extremely difficult to embody and can be a stumbling block for some developers who struggle to apply them pragmatically in real-world applications.
 
-- Too difficult to be qulified as "REST"
+- Too difficult to be qualified as "REST"
 - Dogma of REST vs Pragmatism
-- Structure architectural style
+- Structured architectural style
 - The need to be productive
 
 **Why Design your API first?**
 
-- Extremelly difficult to fix an API after publishing
+- Extremely difficult to fix an API after publishing
 - Too easy to add ad-hoc endpoints
 - Help understand the requirements
-- Well-designed APIs have longer maturaty and lifespan.
-
+- Well-designed APIs have longer maturity and lifespan
 
 **Parts of APIs**
 
@@ -151,10 +142,9 @@ REST concepts and contextualization can be extremelly difficult to embody and ca
 |              |        Headers            |
 |              |    Request Body           |
 
-
 **What are URIs?**
 
-- URIS are just paths to resources
+- URIs are just paths to resources
     - restdesign.dev/people
 - Query strings for non-data elements
     - format, sorting, searching, etc.
@@ -166,7 +156,6 @@ REST concepts and contextualization can be extremelly difficult to embody and ca
 
 - Each resource has:
     - A unique URI
-
     - A representation, usually in JSON or XML
 
 - Resources are the core context for all interactions in REST APIs—they represent "what" is being acted on.
@@ -177,23 +166,27 @@ REST concepts and contextualization can be extremelly difficult to embody and ca
 - Does not have to be 'primary keys' but it needs to identify the resource and **result in one resource only!**
 
 ``` 
+
 /customers
 /customers/1
 /customers/microsoft
 /customers/msft
 ...
+
 ```
 
 **Query strings**
 
-- Not required, it is used for non-resource properties
+- Not required, it is used for non-resource properties.
 
 ```
+
 /customers?includeProjects=true
 /tickets?page=1
 /products?category=shoes
 /posts?page=2&limit=10
 /orders?startDate=2024-01-01&endDate=2024-12-31
+
 ```
 
 
@@ -203,7 +196,6 @@ REST concepts and contextualization can be extremelly difficult to embody and ca
 |---------------------|--------------------------------|-----------------------------------|---------------------------------|--------------------------------|
 | `/customers`        | Get list of all customers      | Create a new customer             | Update a batch of customers     | Error (No ID specified)        |
 | `/customers/123`    | Get customer with ID 123       | Error (ID specified, POST not supported) | Update customer with ID 123     | Delete customer with ID 123    |
-
 
 #### Idempotent
 
@@ -216,6 +208,10 @@ It means that making the same request multiple times has the same effect as maki
 **DELETE**: ✅ Idempotent – Deleting the same resource multiple times results in the same state (resource is gone).
 
 **POST**: ❌ Not idempotent – Creating the same resource multiple times can result in duplicates.
+
+#### Design Results
+
+Design the entities based on how you want them to relate to each other. Don’t over-engineer it—just think about the API more broadly and how it will be used.
 
 
 #### Design Results
@@ -241,15 +237,18 @@ Design the entities based on how you want them to relate to each other. Don’t 
 
 ```
 
+
 **Design results**
 - Members Names
-    - Should not exporse Server Details
-        - I preferer camelCasing versus pascal
+    - Should not expose Server Details
+        - I prefer camelCasing versus Pascal
         - If objectionable 
-        - At least be consistent so the API user is not confuse.
+        - At least be consistent so the API user is not confused.
 - Design Collections
     - Give the user more than just the information result. 
     - Adding totalCount, prevPage, nextPage, and so forth, can give the API user a better experience and context to what they are consuming.   
+
+ 
 
  ```
  {
@@ -287,5 +286,7 @@ Design the entities based on how you want them to relate to each other. Don’t 
 
 ```
 ## Advance REST Design
+
+
 
 
