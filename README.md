@@ -10,28 +10,28 @@ Distributed computing has evolved significantly over the decades, shaping how sy
 
 Communicating between two computers is not a new problem it dates back to almost 50 years ago. 
 
-1970 
-    RPC
-    Messaging
-    Queues
+- 1970 
+    - RPC
+    - Messaging
+    - Queues
 
 **Object-oriented APIs**
-1980
-1990
-    COM
-    DCOM
-    CORBA
-    JAVA RMI
+- 1980
+- 1990
+    - COM
+    - DCOM
+    - CORBA
+    - JAVA RMI
 
 **Web-based APIs**
-2000
-    XML HTTP
-    REST
-    SOAP
-2010
-    GraphQL
-    gRPC
-2020
+- 2000
+    - XML HTTP
+    - REST
+    - SOAP
+- 2010
+    - GraphQL
+    - gRPC
+- 2020
 
 **Do you really need a web API?**
     - Are you bilding a website?
@@ -44,26 +44,30 @@ Communicating between two computers is not a new problem it dates back to almost
 ### How does HTTP work?**
 
 
-Client => makes a request to the ==> Server
-Server => respond to the client with info ==> Client
+- **Client** ➡️ makes a request to the ➡️ **Server**
 
-            Request:
-                verb    - What Action to take?
-                headers  - Info About the request
-                content - The request data
+- **Server** ➡️ respond to the client with info ➡️ **Client**
+
+            - Request:
+                - verb    - What Action to take?
+                - headers  - Info About the request
+                - content - The request data
 🖥️ ===============================================>🗄️
-                POST
-                Content Length: 12
-                Hello World!
+               
+                - POST
+                - Content Length: 12
+                - Hello World!
 
-            Response:
-                status Code - Did it work or not
-                headers     - Info About the response
-                content     - The response data
+---
+            - Response:
+                - status Code - Did it work or not
+                - headers     - Info About the response
+                - content     - The response data
 🖥️ <===============================================🗄️
-                Status 201 
-                Content Type: Text
-                Hello World!
+                
+                - Status 201 
+                - Content Type: Text
+                - Hello World!
 
 
 **Request Deconstructed**
@@ -280,7 +284,8 @@ Design the entities based on how you want them to relate to each other. Don’t 
     ....
   ]
 }
-```
 
+```
+## Advance REST Design
 
 

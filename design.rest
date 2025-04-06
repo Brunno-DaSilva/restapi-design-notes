@@ -58,3 +58,7 @@ Content-Type: application/json
 ### 
 DELETE {{site}}/api/customers/26
 Accept: application/json
+
+
+###  
+GET {{site}}/api/tickets?page=2&pageSize=10
