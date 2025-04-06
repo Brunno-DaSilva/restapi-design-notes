@@ -1,5 +1,5 @@
 
-# REST API Overview
+# REST API Best Practices
 
 
 ## The History of Distributed APIs
@@ -245,29 +245,42 @@ Design the entities based on how you want them to relate to each other. Don’t 
         - At least be consistent so the API user is not confuse.
 - Design Collections
     - Give the user more than just the information result. 
-    - Adding totalCount, NextPage, can give the API user a better experience and context to what they are consuming.  
-    
+    - Adding totalCount, prevPage, nextPage, and so forth, can give the API user a better experience and context to what they are consuming.   
+
  ```
  {
-  "totalCount": 125,
-  "nextPage": "/api/items?page=2",
+  "totalCount": 100,
+  "prevPage": "/api/tickets?page=1&pageSize=10",
+  "nextPage": "/api/tickets?page=3&pageSize=10",
+  "currentPage": 2,
+  "pageSize": 10,
   "results": [
     {
-      "id": 1,
-      "name": "Item One",
-      "description": "Description for item one"
+      "id": 47,
+      "employee": {
+        "id": 7,
+        "name": "Sarah Adams",
+        "billingRate": 225
+      },
+      "employeeId": 7,
+      "hours": 5,
+      "billingRate": 225,
+      "date": "2024-04-14T16:23:18.6925374+00:00",
+      "project": {
+        "id": 10,
+        "projectName": "kaci.name",
+        "customer": null,
+        "startDate": "2024-11-22T07:59:41.8720483+00:00",
+        "endDate": null,
+        "customerId": 3
+      },
+      "projectId": 10,
+      "workPerformed": "Try to navigate the RSS circuit, maybe it will navigate the virtual circuit!"
     },
-    {
-      "id": 2,
-      "name": "Item Two",
-      "description": "Description for item two"
-    },
-    {
-      "id": 3,
-      "name": "Item Three",
-      "description": "Description for item three"
-    }
+    ....
   ]
 }
 ```
-# restapi-design-notes
+
+
+

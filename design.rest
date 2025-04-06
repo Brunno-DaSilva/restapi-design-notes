@@ -1,0 +1,60 @@
+@site=https://restdesign.dev
+
+GET {{site}}
+
+### 
+
+GET {{site}}/api/customers/26
+Accept: application/json
+
+# GET {{site}}/api/customers/9?includeProjects=true
+# Accept: application/json
+
+###
+GET {{site}}/api/customers
+Accept: application/json
+
+###
+POST {{site}}/api/customers
+Accept: application/json
+Content-Type: application/json
+
+{
+    "companyName": "McSilva & Sons",
+    "contact": "Ian Lynch",
+    "phoneNumber": "466-369-5083 x777",
+    "email": "il@mcsilva.com",
+    "addressLine1": "715 Benny Center",
+    "addressLine2": null,
+    "addressLine3": null,
+    "city": "Fernandoburgh",
+    "stateProvince": "MN",
+    "postalCode": "77240-4410",
+    "country": "USA",
+    "projects": []
+}
+
+###
+PUT {{site}}/api/customers/26
+Accept: application/json
+Content-Type: application/json
+
+{
+    "id": 26,
+    "companyName": "McSilva & Sons",
+    "contact": "Ian Lynch",
+    "phoneNumber": "466-369-5083 x777",
+    "email": "il@mcsilva.com",
+    "addressLine1": "715 Benny Center",
+    "addressLine2": null,
+    "addressLine3": null,
+    "city": "Fernandoburgh",
+    "stateProvince": "MN",
+    "postalCode": "77240-4410",
+    "country": "BRAZIL",
+    "projects": []
+}
+
+### 
+DELETE {{site}}/api/customers/26
+Accept: application/json
