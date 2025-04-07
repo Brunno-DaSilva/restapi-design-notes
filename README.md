@@ -32,10 +32,10 @@ Communicating between two computers is not a new problem it dates back to almost
 - 2020
 
 **Do you really need a web API?**
-    - Are you building a website?
-    - Are you building a SPA?
-    - Are you building a mobile app?
-    - If not, why are you doing it?
+- Are you building a website?
+- Are you building a SPA?
+- Are you building a mobile app?
+- If not, why are you doing it?
 
 ### How does HTTP work?
 
@@ -237,7 +237,6 @@ Design the entities based on how you want them to relate to each other. Don’t 
 
 ```
 
-
 **Design results**
 - Members Names
     - Should not expose Server Details
@@ -287,6 +286,177 @@ Design the entities based on how you want them to relate to each other. Don’t 
 ```
 ## Advance REST Design
 
+**Design Association**
+
+In REST API design, Designing Associations (often referred to as Modeling Relationships) is about representing the relationships between different resources (data entities) in your API's URL structure and responses.
+
+Design Association is how you represent links or references between resources—like how a customer has many orders, or a project belongs to a company.
+
+In raw terms, it is the idea of utilizing URI paths to get objecst that are related to one another. 
+
+| Association Type | Description                                           | Example Endpoints                                 |
+|------------------|-------------------------------------------------------|---------------------------------------------------|
+| One-to-One       | A user has one profile                                | `GET /users/123/profile`                          |
+| One-to-Many      | A customer has many orders                            | `GET /customers/123/orders`  <br> `POST /customers/123/orders` |
+| Many-to-Many     | Students enrolled in many courses and vice versa      | `GET /students/456/courses` <br> `GET /courses/789/students`   |
+
+
+**Paging**
+
+- Lists should support paging
+- Query strings are commonly used for paging
+    - `/api/tickets?page=2&pageSize=24`
+    - 💡 TIP: PageSize of 25 as long as they are in rows of 5is going to look clean, 24 is enumerated of 12 and it would work well for different size screens
+    - Use a wrapper to imply paging
+
+- Server side logic
+
+    ```
+    -- To fetch data for the page
+    SELECT * FROM tickets
+    LIMIT 10 OFFSET 20;  -- For page 3 with pageSize 10
+
+    -- To get the total count of items
+    SELECT COUNT(*) FROM items;
+
+    ```
+
+- Empty Results: If no results are found for a page, return an empty results array.
+
+- Invalid Page: If a page number is too large (i.e., out of range), return an empty page or a 404 error, depending on your business logic.
+
+- Default Paging: If no page or pageSize is specified, you can default to page=1 and pageSize=10 (or another default).
+
+**Design Error Handling**
+
+- Dont Return just the status code
+- Return an object with error information
+    - `400 Bad Request`
+    - `{ Error: "Failed to supply id}`
+- For common errors you might not need to return any additional information.
+    - ` 404 Not Found`
+
+Example: 
+
+- Request ℹ️
+
+        ```
+        POST {{site}}/api/customers
+        Accept: application/json
+        Content-Type: application/json
+
+        {
+            "companyName": "", 
+            "contact": ""
+        }
+
+        ```
+
+
+- Response 📦
+
+        ```
+        {
+            "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+            "title": "One or more validation errors occurred.",
+            "status": 400,
+            "errors": {
+                "CompanyName": [
+                "'Company Name' must not be empty.",
+                "The length of 'Company Name' must be at least 5 characters. You entered 0 characters."
+                ]
+            }
+        }
+
+        ```
+
+
+- Request ℹ️
+
+        ```
+        POST {{site}}/api/customers
+        Accept: application/json
+        Content-Type: application/json
+
+        {
+            "companyName": "Box", 
+            "contact": ""
+        }
+
+        ```
+
+
+- Response 📦
+
+        ```
+        {
+            "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+            "title": "One or more validation errors occurred.",
+            "status": 400,
+            "errors": {
+                "CompanyName": [
+               "The length of 'Company Name' must be at least 5 characters. You entered 3 characters."
+                ]
+            }
+        }
+
+        ```
+
+**Design Caching**
+
+HTTP caching is a way to make websites and APIs faster by saving copies of responses so they don’t have to be sent from the server every time. When you request something like a webpage or API data, the browser or a middle server (like a CDN) can store the response for a while. If you ask for the same thing again soon, it can give you the saved version instead of bothering the server again—saving time and reducing traffic. Caching uses headers like Cache-Control, ETag, and Last-Modified to know when to reuse or refresh the saved data.
+
+
+            - Request:
+                - GET
+                - Version: last_xyz
+                - Hello World!
+🖥️ ===============================================>🗄️
+
+               
+
+            - Response:
+                - 304 Not Modified
+🖥️ <===============================================🗄️
+
+---
+
+            - Request:
+                - PUT
+                - If-Match=last_xyz
+                - Hello World!
+🖥️ ===============================================>🗄️
+
+            - Response:
+                - 401 Precondition Failed
+🖥️ <===============================================🗄️
+
+
+**Entity Tags (ETags)**
+
+One of the most common ways people handle this is with Entity Tags. 
+
+Entity Tags (ETags) are a way for servers to tell if the content you're asking for has changed since the last time you checked. When a server sends a response, it includes an ETag—a unique ID (like a fingerprint) for that version of the content. Next time you request the same resource, your browser can send that ETag back. If the content hasn’t changed, the server just replies with a 304 Not Modified status—saving bandwidth and loading faster. If the content has changed, the server sends the new version with a new ETag.
+
+- Strong and Waek Caching Support
+- Returned in the Response
+    ```
+    HTTP/1.1 200 OK
+    Content-Type: text/xml;
+    Date: Sun, 23 May 2013
+    ETag: W/"4893023942098"
+    Content-Length:639
+
+    ```
+- GET 
+    - Request with If-None-Match 
+        - `If-None-Match: "4893023942098"`
+    - Use 304 to indicate that it's cahced
+        - `HTTP/1.1 304 Not Modified`
+
+- PUT or DELETE
+    - `If-Match: "4893023942098"`
+    - `HTTP/1.1 412 Precondition Failed`
 
 
 
