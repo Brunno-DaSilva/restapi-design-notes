@@ -210,7 +210,7 @@ It means that making the same request multiple times has the same effect as maki
 
 **POST**: ❌ Not idempotent – Creating the same resource multiple times can result in duplicates.
 
-#### Design Entities
+#### Design Results
 
 Design the entities based on how you want them to relate to each other. Don’t over-engineer it—just think about the API more broadly and how it will be used.
 
