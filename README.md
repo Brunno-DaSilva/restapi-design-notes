@@ -120,6 +120,7 @@ Communicating between two computers is not a new problem it dates back to almost
     - Uniform interface
 
 **Problems of REST**
+
 REST concepts and contextualization can be extremely difficult to embody and can be a stumbling block for some developers who struggle to apply them pragmatically in real-world applications.
 
 - Too difficult to be qualified as "REST"
@@ -209,14 +210,10 @@ It means that making the same request multiple times has the same effect as maki
 
 **POST**: ❌ Not idempotent – Creating the same resource multiple times can result in duplicates.
 
-#### Design Results
+#### Design Entities
 
 Design the entities based on how you want them to relate to each other. Don’t over-engineer it—just think about the API more broadly and how it will be used.
 
-
-#### Design Results
-
-Design the entities based on how you want them to relate to each other. Don’t over-engineer it—just think about the API more broadly and how it will be used.
 
 ```
 {
@@ -237,7 +234,8 @@ Design the entities based on how you want them to relate to each other. Don’t 
 
 ```
 
-**Design results**
+**Design structure**
+
 - Members Names
     - Should not expose Server Details
         - I prefer camelCasing versus Pascal
